@@ -7,13 +7,13 @@ namespace udp_client
 {
 
 UdpClient::UdpClient(const udp::Socket* socket, const sockaddr_in& address)
+    : socket(socket), address(address)
 {
-    this->socket = socket;
-    this->address = address;
 }
 
 bool UdpClient::send(std::string_view message)
 {
+    if (!socket) return false;
     return udp::send(*socket, address, message);
 }
 

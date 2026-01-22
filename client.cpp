@@ -13,6 +13,7 @@ Client::Client()
 
 bool Client::send(std::string_view message)
 {
+    (bool)message;
     return true;
 }
 

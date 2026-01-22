@@ -17,7 +17,7 @@ public:
 
 private:
     const udp::Socket* socket;
-    const sockaddr_in& address;
+    sockaddr_in address{};
 };
 
 } // namespace udp_client
