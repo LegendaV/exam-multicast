@@ -15,4 +15,4 @@ target_sources(multicast PRIVATE
   udp.cpp
   serial.cpp
   serial.hpp
-)
+ "client.cpp" "udp_client.cpp" "serial_client.cpp")

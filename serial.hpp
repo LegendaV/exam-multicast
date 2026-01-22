@@ -12,6 +12,8 @@ class Device
 public:
     Device(std::string_view path);
     int Handler() const noexcept;
+    Device(Device&&) noexcept;
+    Device& operator=(Device&&) noexcept;
 
 private:
     int fd_;

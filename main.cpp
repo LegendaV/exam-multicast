@@ -2,6 +2,9 @@
 
 #include "config.hpp"
 #include "udp.hpp"
+#include "client.hpp"
+#include "udp_client.hpp"
+#include "serial_client.hpp"
 
 namespace
 {
@@ -45,15 +48,16 @@ int main(int argc, char* argv[])
         Config config{argv[1]};
         udp::Socket socket{};
 
+        std::vector<client::Client> clients;
+
         for ([[maybe_unused]] const auto& entry : config.GetUdpEntries())
         {
-            // TODO: добавьте клиента (используйте объект socket)
+            clients.push_back(udp_client::UdpClient(&socket, entry.address));
         }
 
         for ([[maybe_unused]] const auto& entry : config.GetSerialEntries())
         {
-            // TODO: добавьте клиента (для каждого клиента создавайте
-            // новые объекты serial::Device)
+            clients.push_back(serial_client::SerialClient(serial::Device(entry.device)));
         }
 
         std::string input{};
@@ -61,7 +65,10 @@ int main(int argc, char* argv[])
         {
             input.push_back('\n');
 
-            // TODO: отправьте всем клиентам
+            for (client::Client& client : clients)
+            {
+                client.send(input);
+            }
         }
         return EXIT_SUCCESS;
     }

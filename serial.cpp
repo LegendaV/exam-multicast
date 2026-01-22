@@ -52,6 +52,17 @@ int Device::Handler() const noexcept
     return fd_;
 }
 
+Device::Device(Device&& other) noexcept : fd_(std::exchange(other.fd_, -1)) { }
+
+Device& Device::operator=(Device&& other) noexcept
+{
+    if (this != &other)
+    {
+        fd_ = std::exchange(other.fd_, -1);
+    }
+    return *this;
+}
+
 bool send(const Device& device, std::string_view message)
 {
     return write(device.Handler(), message.data(), message.size()) >= 0;
