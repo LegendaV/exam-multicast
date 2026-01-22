@@ -1,16 +1,14 @@
 #include <string_view>
 #include "serial_client.hpp"
+#include <utility>
 
 namespace multicast
 {
 namespace serial_client
 {
 
-SerialClient::SerialClient(const serial::Device& device)
-{
-    this->device = std::move(device);
-}
-
+SerialClient::SerialClient(serial::Device& device_) : device(std::move(device_))
+{ }
 
 bool SerialClient::send(std::string_view message)
 {

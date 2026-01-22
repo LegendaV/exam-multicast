@@ -11,7 +11,7 @@ namespace serial_client
 class SerialClient : public client::Client
 {
 public:
-    SerialClient(const serial::Device& device);
+    SerialClient(serial::Device& device);
 
     bool send(std::string_view message);
 
