@@ -7,7 +7,7 @@ namespace multicast
 namespace serial_client
 {
 
-SerialClient::SerialClient(serial::Device& device_) : device(std::move(device_))
+SerialClient::SerialClient(serial::Device&& device_) : device(std::move(device_))
 { }
 
 bool SerialClient::send(std::string_view message)
